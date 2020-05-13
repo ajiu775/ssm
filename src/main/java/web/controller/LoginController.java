@@ -14,11 +14,10 @@ import javax.servlet.http.HttpServletRequest;
  * @author: Allen
  * @create: 2020-05-09 19:16
  **/
-@Controller
-@RequestMapping(value = "/")
 @Slf4j
+@Controller
 public class LoginController {
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String start() {
         return "index";
     }

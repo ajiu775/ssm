@@ -9,7 +9,7 @@
     context-param >> listener  >> filter  >> servlet-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath*:springMvc.xml</param-value>
+        <param-value>classpath*:applicationContext.xml</param-value>
     </context-param>
 
     <!-- 事件监听器 用来加载Spring配置-->
@@ -23,7 +23,7 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath*:applicationContext.xml</param-value>
+            <param-value>classpath*:springMvc.xml</param-value>
         </init-param>
         <!-- 配置servlet加载顺序优先级越小越先执行 -->
         <load-on-startup>1</load-on-startup>

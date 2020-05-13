@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 包扫描:将所有打了Spring注解的类托管给Spring容器 -->
+    <context:component-scan base-package="web.*">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:exclude-filter>
+    </context:component-scan>
+    <context:property-placeholder location="classpath*:*.properties"/>
+
+    <!-- jdbc 配置 -->
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!-- 数据库驱动 -->
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <!--  用户名 -->
+        <property name="username" value="${jdbc.userName}"/>
+        <!-- 密码 -->
+        <property name="password" value="${jdbc.password}"/>
+        <!-- 数据库地址 -->
+        <property name="url" value="${jdbc.url}"/>
+    </bean>
+
+    <!-- 将mybatis的sqlSessionFactory叫个spring托管-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 实体类映射文件路径,这里只有一个就写死了，多个可以使用mybatis/*.xml来替代 -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+
+    <!-- 动态代理将sqlSessionFactory注册到MapperScannerConfigurer中这样就不用手动启动sqlSession -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="web.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+    </bean>
+
+</beans>

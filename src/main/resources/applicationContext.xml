@@ -9,8 +9,9 @@
                            https://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 包扫描:将所有打了Spring注解的类托管给Spring容器 -->
-    <context:component-scan base-package="web.*"></context:component-scan>
-
+    <context:component-scan base-package="web.*">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:exclude-filter>
+    </context:component-scan>
     <context:property-placeholder location="classpath*:*.properties"/>
 
     <!-- jdbc 配置 -->
