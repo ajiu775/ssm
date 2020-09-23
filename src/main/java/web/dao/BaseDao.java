@@ -1,12 +1,14 @@
 package web.dao;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @program: jax
  * @description: This BaseDao is father of subDao
  * @author: Allen
  * @create: 2020-05-11 16:17
  **/
-
+@Component
 public interface BaseDao<T> {
     /**
      * @param entity :  object <=> database object

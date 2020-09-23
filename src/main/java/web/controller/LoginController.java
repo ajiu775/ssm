@@ -5,8 +5,13 @@ import org.apache.log4j.PropertyConfigurator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import web.entity.Student;
+import web.service.StudentServiceImpl;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @program: jax
@@ -18,14 +23,23 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(value = "/")
 @Slf4j
 public class LoginController {
+    @Resource
+    private StudentServiceImpl studentService;
+    @Resource
+    private ModelAndView modelAndView;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String start() {
         return "index";
     }
 
-    @RequestMapping(value = "/lo", method = RequestMethod.GET)
-    public String login() {
-        return "login";
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
+        Student student = studentService.queryById(Integer.valueOf(request.getParameter("id")));
+        if(student.getAccount().equals(request.getParameter("account"))){
+            modelAndView.setViewName("fail");
+        }
+        return modelAndView;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)

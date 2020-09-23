@@ -26,7 +26,7 @@
         <property name="url" value="${jdbc.url}"/>
     </bean>
 
-    <!-- 将mybatis的sqlSessionFactory叫个spring托管-->
+    <!-- 将mybatis的sqlSessionFactory交给spring托管-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <!-- 实体类映射文件路径,这里只有一个就写死了，多个可以使用mybatis/*.xml来替代 -->

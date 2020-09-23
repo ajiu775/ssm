@@ -1,5 +1,6 @@
 package web.dao;
 
+import org.springframework.stereotype.Component;
 import web.entity.Student;
 
 /**
@@ -8,7 +9,7 @@ import web.entity.Student;
  * @author: Allen
  * @create: 2020-05-11 16:57
  **/
-
+@Component
 public interface StudentDao extends BaseDao<Student> {
 
 }
